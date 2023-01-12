@@ -1,6 +1,9 @@
 <script lang='ts' setup>
+import type { GameInterface } from "@/interfaces/game.interface";
 
 // selection aleatoire d'un mot dans data
+
+
 // remplacer le mot par des underscores
 // remplacer les underscore par les lettres justes
 // faire winner / loser à la fin de la partie

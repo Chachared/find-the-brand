@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Picture from "./components/Picture.vue";
+import GamePicture from "./components/Picture.vue";
 import GameStats from "./components/GameStats.vue";
 import Word from "./components/Word.vue";
 import Keyboard from "./components/Keyboard.vue";
@@ -9,9 +9,8 @@ import Keyboard from "./components/Keyboard.vue";
   <header>
       <div>
       <h1 class="text-center">Trouvez la marque !</h1>
-      <Picture/>
+      <GamePicture/>
       </div>
-      
   </header>
 
   <main>
@@ -28,6 +27,10 @@ import Keyboard from "./components/Keyboard.vue";
 <style scoped>
 header {
   line-height: 1.5;
+  font-family: 'Edu QLD Beginner', cursive;
+}
+.wrapper {
+  font-family: 'Mingzat', sans-serif;
 }
 
 @media (min-width: 1024px) {
