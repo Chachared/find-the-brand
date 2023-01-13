@@ -1,4 +1,4 @@
-import { getRandomWord, fetchWords, HideWord } from '@/services/game.service';
+import { fetchWords, HideWord } from '@/services/game.service';
 import { defineStore } from 'pinia';
 
 interface WordState {

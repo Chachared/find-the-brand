@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import GamePicture from "./components/Picture.vue";
 import Word from "./components/Word.vue";
-import Keyboard from "./components/Keyboard.vue";
 </script>
 
 <template >
@@ -16,7 +15,6 @@ import Keyboard from "./components/Keyboard.vue";
     <div class="wrapper">
       <div>
         <Word />
-        <Keyboard/>
       </div>
       </div>
   </main>

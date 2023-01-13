@@ -20,49 +20,29 @@ export function HideWord() {
     return hiddenWord.split('');
 };
 
-// export function generateLetterButtons(letters_section_element) {
-//     const ul_element = document.createElement('ul');
-//     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').forEach(letter => {
-//         const li_element = document.createElement('li');
-//         li_element.textContent = letter;
-//         li_element.addEventListener('click', () => this.checkIfLetterInWord(event), {once: true});
-//         ul_element.appendChild(li_element);
-//     });
+export function checkLetter(event) {
+    this.attempts++;
 
-//     letters_section_element.appendChild(ul_element);
-// };
+    const selected_letter = event.target.textContent;
 
+    if(this.random_word.includes(selected_letter)) {
+        event.target.classList.add('good');
+        this.random_word.split('').forEach((letter, index) => {
+            if(letter === selected_letter) {
+                this.letters_found++;
+                this.hidden_letters_array[index] = selected_letter;
+            }
+        });
 
+        document.body.querySelector('section[id="word-to-find"] > p').textContent = this.hidden_letters_array.join('');
+    } else {
+        this.errors++;
+        event.target.classList.add('wrong');
+        document.body.querySelector('img').src = `./img/error${this.errors}.jpg`;
+    }
 
-// checkIfLetterInWord(event) {
-//     this.attempts++;
-
-//     const selected_letter = event.target.textContent;
-
-//     if(this.random_word.includes(selected_letter)) {
-//         event.target.classList.add('good');
-//         this.random_word.split('').forEach((letter, index) => {
-//             if(letter === selected_letter) {
-//                 this.letters_found++;
-//                 this.hidden_letters_array[index] = selected_letter;
-//             }
-//         });
-
-//         document.body.querySelector('section[id="word-to-find"] > p').textContent = this.hidden_letters_array.join('');
-//     } else {
-//         this.errors++;
-//         event.target.classList.add('wrong');
-//         document.body.querySelector('img').src = `./img/error${this.errors}.jpg`;
-//     }
-//     document.body.querySelector('figcaption').innerHTML = `
-//         Nombre de lettres à trouver : ${this.random_word.length} <br>
-//         Lettres trouvées : ${this.letters_found} <br>
-//         Nombre de tentatives : ${this.attempts} <br>
-//         Nombre d'erreurs : ${this.errors} / 5
-//     `;
-
-//     this.checkIfWinner();
-// };
+    this.checkIfWinner();
+};
 
 // checkIfWinner() {
 
