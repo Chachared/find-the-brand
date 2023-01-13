@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import GamePicture from "./components/Picture.vue";
-import GameStats from "./components/GameStats.vue";
 import Word from "./components/Word.vue";
 import Keyboard from "./components/Keyboard.vue";
 </script>
@@ -16,8 +15,7 @@ import Keyboard from "./components/Keyboard.vue";
   <main>
     <div class="wrapper">
       <div>
-        <GameStats/>
-        <Word/>
+        <Word />
         <Keyboard/>
       </div>
       </div>

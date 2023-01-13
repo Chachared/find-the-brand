@@ -1,4 +1,4 @@
-export const word = [
+export default [
     "ALFA ROMEO",
     "AUDI",
     "BMW",
