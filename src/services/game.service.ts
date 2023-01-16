@@ -13,36 +13,22 @@ export function getRandomWord() {
     return wordsArray[0];
 };
 
-export function HideWord() {
-    const randomWord = getRandomWord();
-    console.log(randomWord);
+export function hideWord(randomWord:string) {
     const hiddenWord = randomWord.slice().replace(/[A-Z]/g, '_');
-    return hiddenWord.split('');
+    return hiddenWord;
 };
 
-export function checkLetter(event) {
-    this.attempts++;
-
-    const selected_letter = event.target.textContent;
-
-    if(this.random_word.includes(selected_letter)) {
-        event.target.classList.add('good');
-        this.random_word.split('').forEach((letter, index) => {
-            if(letter === selected_letter) {
-                this.letters_found++;
-                this.hidden_letters_array[index] = selected_letter;
+export function compareLetters(randomWord: string, hiddenWord: string, letter: string) {
+    if (randomWord.includes(letter)) {
+        randomWord.split('').forEach((letter, index) => {
+            if(letter === letter) {
+                hiddenWord[index] === letter;
             }
         });
+}
+}
 
-        document.body.querySelector('section[id="word-to-find"] > p').textContent = this.hidden_letters_array.join('');
-    } else {
-        this.errors++;
-        event.target.classList.add('wrong');
-        document.body.querySelector('img').src = `./img/error${this.errors}.jpg`;
-    }
 
-    this.checkIfWinner();
-};
 
 // checkIfWinner() {
 

@@ -1,15 +1,25 @@
-import { fetchWords, HideWord } from '@/services/game.service';
+import { compareLetters, fetchWords, getRandomWord, hideWord } from '@/services/game.service';
 import { defineStore } from 'pinia';
 
 interface WordState {
     words: [],
-    isLoading: boolean
+    isLoading: boolean,
+    errors: number,
+    attempts: number,
+    lettersFound: number,
+    isGoodLetter: boolean,
+    isBadLetter: boolean
 }
 
 export const useWord = defineStore('words', {
-    state: (): WordState =>({
+    state: (): WordState => ({
         words: [],
         isLoading: false,
+        errors: 0,
+        attempts: 0,
+        lettersFound: 0,
+        isGoodLetter: false,
+        isBadLetter: false,
     }),
     getters: {
         wordList(state: WordState) {
@@ -17,14 +27,21 @@ export const useWord = defineStore('words', {
         }
     },
     actions: {
-        fetchWords(){
+        fetchWords() {
             const words = fetchWords();
             return words;
         },
-        generateHiddenWord(){
-            const hiddenWord = HideWord();
-            return hiddenWord;
+        generateRandomWord() {
+            const randomWord = getRandomWord();
+            return randomWord;
+        },
+        generateHiddenWord(randomWord: string) {
+            const hiddenWord = hideWord(randomWord);
+            return hiddenWord.split('');
+        },
+        checkLetters(ramdomWord: string, hiddenWord: string, letter: string) {
+            compareLetters(ramdomWord, hiddenWord, letter);
         }
-        
+
     }
 })

@@ -1,48 +1,47 @@
 <script lang='ts' setup>
 import { useWord } from '@/stores/word.store';
+import { reactive } from 'vue';
 
 const wordStore = useWord();
-const words = wordStore.fetchWords();
-console.log(words);
 
 // selection aleatoire d'un mot dans data
+const randomWord = wordStore.generateRandomWord();
+console.log(randomWord);
 // remplacer le mot par des underscores
-const hiddenWord = wordStore.generateHiddenWord();
-console.log(hiddenWord);
+const hiddenWord = wordStore.generateHiddenWord(randomWord);
 
 // remplacer les underscore par les lettres justes
 const letters = "AZERTYUIOPQSDFGHJKLMWXCVBN".split('');
-function checkLetter(event) {
-    // incrémenter le compteur de tentatives
+const stats = reactive({
+    errors: 0,
+    attempts: 0,
+    lettersFound:0,
+    isGoodLetter: false,
+    isBadLetter: false
+});
 
-    //récupérer la lettre du bouton
+function compareLetters(clickedLetter: string) {
+    if (randomWord.includes(clickedLetter)) {
+        stats.attempts++;
+        randomWord.split('').forEach((letter, index) => {
+            if(letter === clickedLetter) {
+                stats.lettersFound++;
+                hiddenWord[index] === clickedLetter;
+                stats.isBadLetter = false;
+                stats.isGoodLetter = true,
+                console.log(letter);
+                //checkIfWinner();
+            }
+        });
 
-    //comparer la lettre avec le tableau de lettres du hiddenWord
-    // if(this.random_word.includes(selected_letter)) {
-    //     event.target.classList.add('good');
-    //     this.random_word.split('').forEach((letter, index) => {
-    //         if(letter === selected_letter) {
-    //             this.letters_found++;
-    //             this.hidden_letters_array[index] = selected_letter;
-    //         }
-    //     });
-    //teinter le bouton en vert
-    //montrer la lettre découverte -> remplacer le underscore par la lettre du hiddenWord
-    //this.hidden_letters_array.join('');
-
-    //sinon incrémenter le compteur d'erreur et teinter le bouton en rouge
-    //afficher l'image d'erreur en fonction du nombre d'erreur
-    // } else {
-    //     this.errors++;
-    //     event.target.classList.add('wrong');
-    //     document.body.querySelector('img').src = `./img/error${this.errors}.jpg`;
-    // }
-
-    //vérifier s'il faut rejouer ou arrêter la partie
-    // this.checkIfWinner();
-};
-
-
+    } else {
+        stats.attempts++;
+        stats.errors++;
+        stats.isBadLetter = false;
+        stats.isBadLetter = true;
+        //checkIfWinner();
+    }
+}
 </script>
 
 <template>
@@ -52,37 +51,65 @@ function checkLetter(event) {
     </div>
     <div v-else>
         <div class="text-center fw-bold border m-3">
-        <h2 class="h5">STATS de JEU</h2>
-        <p>Nombre de lettres à trouver: {{ hiddenWord.length }}</p>
-        <p>Lettres trouvées: -</p>
-        <p>Nombre de tentatives: -</p>
-        <p>Nombre d'erreurs: - /5</p>
-    </div>
+            <h2 class="h5">STATS de JEU</h2>
+            <p>Nombre de lettres à trouver: {{ hiddenWord.length }}</p>
+            <p>Lettres trouvées: {{ stats.lettersFound }}</p>
+            <p>Nombre de tentatives: {{ stats.attempts }}</p>
+            <p>Nombre d'erreurs: {{ stats.errors }} /5</p>
+        </div>
         <div class="text-center fw-bold border m-3">
             <p v-for="hiddenLetter in hiddenWord" class="hidden-letters">{{ hiddenLetter }}</p>
         </div>
         <div class="text-center fw-bold border mx-3">
-        <div>
-            <ul>
-                <li v-for="letter in letters">
-                    <button 
-                        @click="checkLetter(event), {once:true}"
-                        class="mx-2 my-2 btn btn-primary rounded"
+            <div>
+                <ul>
+                    <li 
+                    v-for="clickedLetter in letters" 
+                    @click.once="compareLetters(clickedLetter)" 
+                    class="keyboard"
+                    
                     >
-                        {{ letter }}
-                    </button>
-                </li>
-            </ul>
+                        <button :v-model="clickedLetter"
+                        :class="{good: stats.isGoodLetter, bad: stats.isBadLetter}"
+                         class="btn"
+                         >
+                            {{ clickedLetter }}
+                        </button>
+
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-    </div>
-    
+
 </template>
 
 <style>
 .hidden-letters {
-    display:inline-flex;
+    display: inline-flex;
     letter-spacing: 10px;
     font-size: 35px;
+}
+
+.keyboard {
+    list-style-type: none;
+    width: 45px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    background-color: blueviolet;
+    color: antiquewhite;
+    border-radius: 20px 30px 20px 30px;
+}
+
+.good {
+    background-color: greenyellow !important;
+}
+
+.bad {
+    background-color: tomato !important;;
 }
 </style>
