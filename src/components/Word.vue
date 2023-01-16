@@ -1,8 +1,8 @@
 <script lang='ts' setup>
 import { useWord } from '@/stores/word.store';
-import { reactive } from 'vue';
 
 const wordStore = useWord();
+const state = wordStore.$state;
 
 // selection aleatoire d'un mot dans data
 const randomWord = wordStore.generateRandomWord();
@@ -12,33 +12,27 @@ const hiddenWord = wordStore.generateHiddenWord(randomWord);
 
 // remplacer les underscore par les lettres justes
 const letters = "AZERTYUIOPQSDFGHJKLMWXCVBN".split('');
-const stats = reactive({
-    errors: 0,
-    attempts: 0,
-    lettersFound:0,
-    isGoodLetter: false,
-    isBadLetter: false
-});
 
 function compareLetters(clickedLetter: string) {
     if (randomWord.includes(clickedLetter)) {
-        stats.attempts++;
+
+        state.attempts++;
         randomWord.split('').forEach((letter, index) => {
             if(letter === clickedLetter) {
-                stats.lettersFound++;
+                state.lettersFound++;
                 hiddenWord[index] === clickedLetter;
-                stats.isBadLetter = false;
-                stats.isGoodLetter = true,
+                state.isBadLetter = false;
+                state.isGoodLetter = true,
                 console.log(letter);
                 //checkIfWinner();
             }
         });
 
     } else {
-        stats.attempts++;
-        stats.errors++;
-        stats.isBadLetter = false;
-        stats.isBadLetter = true;
+        state.attempts++;
+        state.errors++;
+        state.isBadLetter = false;
+        state.isBadLetter = true;
         //checkIfWinner();
     }
 }
@@ -53,9 +47,9 @@ function compareLetters(clickedLetter: string) {
         <div class="text-center fw-bold border m-3">
             <h2 class="h5">STATS de JEU</h2>
             <p>Nombre de lettres à trouver: {{ hiddenWord.length }}</p>
-            <p>Lettres trouvées: {{ stats.lettersFound }}</p>
-            <p>Nombre de tentatives: {{ stats.attempts }}</p>
-            <p>Nombre d'erreurs: {{ stats.errors }} /5</p>
+            <p>Lettres trouvées: {{ state.lettersFound }}</p>
+            <p>Nombre de tentatives: {{ state.attempts }}</p>
+            <p>Nombre d'erreurs: {{ state.errors }} /5</p>
         </div>
         <div class="text-center fw-bold border m-3">
             <p v-for="hiddenLetter in hiddenWord" class="hidden-letters">{{ hiddenLetter }}</p>
@@ -70,7 +64,7 @@ function compareLetters(clickedLetter: string) {
                     
                     >
                         <button :v-model="clickedLetter"
-                        :class="{good: stats.isGoodLetter, bad: stats.isBadLetter}"
+                        :class="{good: state.isGoodLetter, bad: state.isBadLetter}"
                          class="btn"
                          >
                             {{ clickedLetter }}

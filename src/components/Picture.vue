@@ -1,4 +1,7 @@
-<script lang='ts' setup>
+<script lang='ts' setup>import { useWord } from '@/stores/word.store';
+
+const wordStore = useWord();
+const state = wordStore.$state;
 
 //image va changer en fonction du nombre d'erreur
 //image reste statique si on trouve une lettre juste
@@ -8,7 +11,7 @@
 
 <template>
     <div class="text-center fw-bold m-3">
-        <img src=@/assets/img/start.jpg />
+        <img :src = "`src/assets/img/error${state.errors}.jpg`" />
     </div>
 </template>
 
