@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Keyboard from "./components/Keyboard.vue";
 import GamePicture from "./components/Picture.vue";
 import Word from "./components/Word.vue";
 </script>
@@ -15,6 +16,7 @@ import Word from "./components/Word.vue";
     <div class="wrapper">
       <div>
         <Word />
+        <Keyboard />
       </div>
       </div>
   </main>

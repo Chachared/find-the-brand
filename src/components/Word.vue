@@ -11,31 +11,7 @@ console.log(randomWord);
 const hiddenWord = wordStore.generateHiddenWord(randomWord);
 
 // remplacer les underscore par les lettres justes
-const letters = "AZERTYUIOPQSDFGHJKLMWXCVBN".split('');
 
-function compareLetters(clickedLetter: string) {
-    if (randomWord.includes(clickedLetter)) {
-
-        state.attempts++;
-        randomWord.split('').forEach((letter, index) => {
-            if(letter === clickedLetter) {
-                state.lettersFound++;
-                hiddenWord[index] === clickedLetter;
-                state.isBadLetter = false;
-                state.isGoodLetter = true,
-                console.log(letter);
-                //checkIfWinner();
-            }
-        });
-
-    } else {
-        state.attempts++;
-        state.errors++;
-        state.isBadLetter = false;
-        state.isBadLetter = true;
-        //checkIfWinner();
-    }
-}
 </script>
 
 <template>
@@ -54,26 +30,7 @@ function compareLetters(clickedLetter: string) {
         <div class="text-center fw-bold border m-3">
             <p v-for="hiddenLetter in hiddenWord" class="hidden-letters">{{ hiddenLetter }}</p>
         </div>
-        <div class="text-center fw-bold border mx-3">
-            <div>
-                <ul>
-                    <li 
-                    v-for="clickedLetter in letters" 
-                    @click.once="compareLetters(clickedLetter)" 
-                    class="keyboard"
-                    
-                    >
-                        <button :v-model="clickedLetter"
-                        :class="{good: state.isGoodLetter, bad: state.isBadLetter}"
-                         class="btn"
-                         >
-                            {{ clickedLetter }}
-                        </button>
-
-                    </li>
-                </ul>
-            </div>
-        </div>
+        
     </div>
 
 </template>
