@@ -8,6 +8,9 @@ import { useWord } from "./stores/word.store";
 const wordStore = useWord();
 const state = wordStore.$state;
 
+//vérifier si on clique sur une bonne lettre
+//remplacer la lettre sur le hiddenWord
+//changer la classe du keyboard en vert ou rouge
 function compareLetters(clickedLetter: string) {
     if (state.randomWord.includes(clickedLetter)) {
 
@@ -29,6 +32,10 @@ function compareLetters(clickedLetter: string) {
         //checkIfWinner();
     }
 }
+
+function checkIfGameEnds(){
+  wordStore.checkWinner(state.errors, state.lettersFound, state.randomWord);
+}
 </script>
 
 <template >
@@ -44,7 +51,7 @@ function compareLetters(clickedLetter: string) {
       <div>
         <Stats/>
         <Word />
-        <Keyboard @compare-letters="compareLetters"/>
+        <Keyboard @compare-letters="compareLetters" @check-if-game-ends="checkIfGameEnds"/>
       </div>
       </div>
   </main>

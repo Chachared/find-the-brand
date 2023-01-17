@@ -26,25 +26,29 @@ export function compareLetters(randomWord: string, hiddenWord: string, letter: s
             }
         });
 }
-}
+};
 
+export function checkIfWinner(errors: number, lettersFound: number, randomWord: string) {
 
-
-// checkIfWinner() {
-
-//     const word_paragraph = document.body.querySelector('section[id="word-to-find"] > p');
+        // const word_paragraph = document.body.querySelector('section[id="word-to-find"] > p');
+        
+        if (errors === 5) {
+            alert('perdu !');
+            // gameOver();
+            // word_paragraph.classList.add('loser');
+            // word_paragraph.textContent = randomWord;
+        }
     
-//     if (this.errors === 5) {
-//         this.gameOver(word_paragraph);
-//         word_paragraph.classList.add('loser');
-//         word_paragraph.textContent = this.random_word;
-//     }
+        if (lettersFound === randomWord.length){
+            alert('gagné !');
+            // gameOver();
+            // word_paragraph.classList.add('winner');
+        }
+    };
 
-//     if (this.letters_found === this.random_word.length){
-//         this.gameOver(word_paragraph);
-//         word_paragraph.classList.add('winner');
-//     }
-// };
+
+
+
 
 // gameOver(word_paragraph) {
 

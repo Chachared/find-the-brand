@@ -7,7 +7,12 @@ const state = wordStore.$state;
 
 const letters = "AZERTYUIOPQSDFGHJKLMWXCVBN".split('');
 
-const emit = defineEmits<{(e: 'compareLetters', clickedLetter:string):void}>();
+const emit = defineEmits<{ 
+    (e: 'compareLetters', clickedLetter: string): void;
+    (e: 'checkIfGameEnds'): void; 
+    }>();
+
+
 
 </script>
 
@@ -16,8 +21,14 @@ const emit = defineEmits<{(e: 'compareLetters', clickedLetter:string):void}>();
     <div class="text-center fw-bold border mx-3">
         <div>
             <ul>
-                <li v-for="clickedLetter in letters" @click.once="$emit('compareLetters', clickedLetter)" class="keyboard">
-                    <button :v-model="clickedLetter" :class="{ good: state.isGoodLetter, bad: state.isBadLetter }"
+                <li v-for="clickedLetter in letters"
+                    @click="$emit('checkIfGameEnds')"
+                    @click.once="$emit('compareLetters', clickedLetter)"
+                    class="keyboard">
+                    <button 
+                        
+                        :v-model="clickedLetter" 
+                        :class="{ good: state.isGoodLetter, bad: state.isBadLetter }"
                         class="btn">
                         {{ clickedLetter }}
                     </button>
