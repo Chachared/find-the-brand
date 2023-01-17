@@ -14,7 +14,6 @@ state.hiddenWord = wordStore.generateHiddenWord(state.randomWord);
 </script>
 
 <template>
-
     <div v-if="wordStore.isLoading">
         <p class="h5">Chargement en cours</p>
     </div>
@@ -22,9 +21,7 @@ state.hiddenWord = wordStore.generateHiddenWord(state.randomWord);
         <div class="text-center fw-bold border m-3">
             <p v-for="hiddenLetter in state.hiddenWord" class="hidden-letters">{{ hiddenLetter }}</p>
         </div>
-        
     </div>
-
 </template>
 
 <style>
@@ -32,27 +29,5 @@ state.hiddenWord = wordStore.generateHiddenWord(state.randomWord);
     display: inline-flex;
     letter-spacing: 10px;
     font-size: 35px;
-}
-
-.keyboard {
-    list-style-type: none;
-    width: 45px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    margin: 5px;
-    cursor: pointer;
-    background-color: blueviolet;
-    color: antiquewhite;
-    border-radius: 20px 30px 20px 30px;
-}
-
-.good {
-    background-color: greenyellow !important;
-}
-
-.bad {
-    background-color: tomato !important;;
 }
 </style>

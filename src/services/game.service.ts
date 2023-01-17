@@ -28,37 +28,4 @@ export function compareLetters(randomWord: string, hiddenWord: string, letter: s
 }
 };
 
-export function checkIfWinner(errors: number, lettersFound: number, randomWord: string) {
-
-        // const word_paragraph = document.body.querySelector('section[id="word-to-find"] > p');
-        
-        if (errors === 5) {
-            alert('perdu !');
-            // gameOver();
-            // word_paragraph.classList.add('loser');
-            // word_paragraph.textContent = randomWord;
-        }
-    
-        if (lettersFound === randomWord.length){
-            alert('gagné !');
-            // gameOver();
-            // word_paragraph.classList.add('winner');
-        }
-    };
-
-
-
-
-
-// gameOver(word_paragraph) {
-
-//     word_paragraph.classList.add('game-over');
-//     document.body.querySelectorAll('li').forEach(letter => letter.className = 'disabled');
-
-//     const button_element = document.createElement('button');
-//     button_element.textContent = "Réessayer !";
-
-//     button_element.addEventListener('click', () => window.location.reload(false));
-//     document.body.querySelector('section[id="letters"]').appendChild(button_element);
-// };
 

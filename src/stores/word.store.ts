@@ -1,4 +1,4 @@
-import { checkIfWinner, compareLetters, fetchWords, getRandomWord, hideWord } from '@/services/game.service';
+import { compareLetters, fetchWords, getRandomWord, hideWord } from '@/services/game.service';
 import { defineStore } from 'pinia';
 
 interface WordState {
@@ -10,7 +10,8 @@ interface WordState {
     isGoodLetter: boolean,
     isBadLetter: boolean,
     randomWord: string,
-    hiddenWord: string[]
+    hiddenWord: string[],
+    keyboardIsDisabled: boolean,
 }
 
 export const useWord = defineStore('words', {
@@ -24,6 +25,7 @@ export const useWord = defineStore('words', {
         isBadLetter: false,
         randomWord: '',
         hiddenWord: [],
+        keyboardIsDisabled: false,
     }),
     getters: {
         wordList(state: WordState) {
@@ -43,11 +45,6 @@ export const useWord = defineStore('words', {
             const hiddenWord = hideWord(randomWord);
             return hiddenWord.split('');
         },
-        checkWinner(errors: number, lettersFound: number, randomWord: string){
-            checkIfWinner(errors, lettersFound, randomWord);
-        }
-            
-        
 
     }
 })

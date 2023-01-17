@@ -3,14 +3,12 @@ import Keyboard from "./components/Keyboard.vue";
 import GamePicture from "./components/Picture.vue";
 import Stats from "./components/Stats.vue";
 import Word from "./components/Word.vue";
+import GameOver from "./components/GameOver.vue";
 import { useWord } from "./stores/word.store";
 
 const wordStore = useWord();
 const state = wordStore.$state;
 
-//vérifier si on clique sur une bonne lettre
-//remplacer la lettre sur le hiddenWord
-//changer la classe du keyboard en vert ou rouge
 function compareLetters(clickedLetter: string) {
     if (state.randomWord.includes(clickedLetter)) {
 
@@ -23,19 +21,14 @@ function compareLetters(clickedLetter: string) {
                 state.isGoodLetter = true;
             }
         });
-        //checkIfWinner();
     } else {
         state.attempts++;
         state.errors++;
         state.isBadLetter = false;
         state.isBadLetter = true;
-        //checkIfWinner();
     }
 }
 
-function checkIfGameEnds(){
-  wordStore.checkWinner(state.errors, state.lettersFound, state.randomWord);
-}
 </script>
 
 <template >
@@ -51,7 +44,8 @@ function checkIfGameEnds(){
       <div>
         <Stats/>
         <Word />
-        <Keyboard @compare-letters="compareLetters" @check-if-game-ends="checkIfGameEnds"/>
+        <GameOver v-if="state.errors === 5 || state.lettersFound === state.randomWord.length" />
+        <Keyboard @compare-letters="compareLetters"/>
       </div>
       </div>
   </main>

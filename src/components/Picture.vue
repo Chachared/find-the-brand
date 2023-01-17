@@ -7,7 +7,7 @@ const state = wordStore.$state;
 <template>
     <div class="text-center fw-bold my-5">
         <img :src = "`src/assets/img/error${state.errors}.jpg`" />
-        <p class="small text-danger">BEWARE the Multipla !</p>
+        <p class="caption">Attention à la Multipla !</p>
     </div>
 </template>
 
@@ -20,5 +20,11 @@ img {
     border: 5px solid seagreen;
     border-radius: 20px 20px 20px 20px;
     margin-bottom: 10px;
+}
+
+.caption {
+    font-family: 'Mingzat', sans-serif;
+    font-weight: 700;
+    color: tomato;
 }
 </style>
