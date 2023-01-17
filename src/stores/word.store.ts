@@ -10,7 +10,7 @@ interface WordState {
     isGoodLetter: boolean,
     isBadLetter: boolean,
     randomWord: string,
-    hiddenWord: string
+    hiddenWord: string[]
 }
 
 export const useWord = defineStore('words', {
@@ -23,7 +23,7 @@ export const useWord = defineStore('words', {
         isGoodLetter: false,
         isBadLetter: false,
         randomWord: '',
-        hiddenWord: '',
+        hiddenWord: [],
     }),
     getters: {
         wordList(state: WordState) {

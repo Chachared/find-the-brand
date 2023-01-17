@@ -1,7 +1,34 @@
 <script setup lang="ts">
 import Keyboard from "./components/Keyboard.vue";
 import GamePicture from "./components/Picture.vue";
+import Stats from "./components/Stats.vue";
 import Word from "./components/Word.vue";
+import { useWord } from "./stores/word.store";
+
+const wordStore = useWord();
+const state = wordStore.$state;
+
+function compareLetters(clickedLetter: string) {
+    if (state.randomWord.includes(clickedLetter)) {
+
+        state.attempts++;
+        state.randomWord.split('').forEach((letter, index) => {
+            if (letter === clickedLetter) {
+                state.lettersFound++;
+                state.hiddenWord.splice(index,1, clickedLetter);
+                state.isBadLetter = false;
+                state.isGoodLetter = true;
+            }
+        });
+        //checkIfWinner();
+    } else {
+        state.attempts++;
+        state.errors++;
+        state.isBadLetter = false;
+        state.isBadLetter = true;
+        //checkIfWinner();
+    }
+}
 </script>
 
 <template >
@@ -15,8 +42,9 @@ import Word from "./components/Word.vue";
   <main>
     <div class="wrapper">
       <div>
+        <Stats/>
         <Word />
-        <Keyboard />
+        <Keyboard @compare-letters="compareLetters"/>
       </div>
       </div>
   </main>

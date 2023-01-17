@@ -2,16 +2,12 @@
 
 const wordStore = useWord();
 const state = wordStore.$state;
-
-//image va changer en fonction du nombre d'erreur
-//image reste statique si on trouve une lettre juste
-
-//document.body.querySelector('img').src = `./img/error${this.errors}.jpg`;
 </script>
 
 <template>
-    <div class="text-center fw-bold m-3">
+    <div class="text-center fw-bold my-5">
         <img :src = "`src/assets/img/error${state.errors}.jpg`" />
+        <p class="small text-danger">BEWARE the Multipla !</p>
     </div>
 </template>
 

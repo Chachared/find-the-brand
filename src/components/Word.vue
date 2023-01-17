@@ -5,11 +5,10 @@ const wordStore = useWord();
 const state = wordStore.$state;
 
 // selection aleatoire d'un mot dans data
-const randomWord = wordStore.generateRandomWord();
-console.log(randomWord);
+state.randomWord = wordStore.generateRandomWord();
+console.log(state.randomWord);
 // remplacer le mot par des underscores
-const hiddenWord = wordStore.generateHiddenWord(randomWord);
-
+state.hiddenWord = wordStore.generateHiddenWord(state.randomWord);
 // remplacer les underscore par les lettres justes
 
 </script>
@@ -21,14 +20,7 @@ const hiddenWord = wordStore.generateHiddenWord(randomWord);
     </div>
     <div v-else>
         <div class="text-center fw-bold border m-3">
-            <h2 class="h5">STATS de JEU</h2>
-            <p>Nombre de lettres à trouver: {{ hiddenWord.length }}</p>
-            <p>Lettres trouvées: {{ state.lettersFound }}</p>
-            <p>Nombre de tentatives: {{ state.attempts }}</p>
-            <p>Nombre d'erreurs: {{ state.errors }} /5</p>
-        </div>
-        <div class="text-center fw-bold border m-3">
-            <p v-for="hiddenLetter in hiddenWord" class="hidden-letters">{{ hiddenLetter }}</p>
+            <p v-for="hiddenLetter in state.hiddenWord" class="hidden-letters">{{ hiddenLetter }}</p>
         </div>
         
     </div>
